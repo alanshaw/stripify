@@ -1,6 +1,6 @@
 {
   "name": "stripify",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Browserify transform that strips console.log lines from your code",
   "main": "stripify.js",
   "bin": "bin/stripify.js",
