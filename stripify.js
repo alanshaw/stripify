@@ -41,6 +41,7 @@ function isConsole (node) {
 function isLog (node) {
   return node.type == "Identifier"
     && (node.name == "log"
+    ||  node.name == "debug"
     ||  node.name == "info"
     ||  node.name == "warn"
     ||  node.name == "error")
