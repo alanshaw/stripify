@@ -1,0 +1,36 @@
+{
+  "name": "stripify",
+  "version": "0.0.0",
+  "description": "Browserify transform that strips console.log lines from your code",
+  "main": "stripify.js",
+  "bin": "bin/stripify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alanshaw/stripify.git"
+  },
+  "keywords": [
+    "browserify",
+    "browserify-transform",
+    "strip",
+    "console",
+    "log",
+    "logging",
+    "console.log",
+    "console.info",
+    "console.warn",
+    "console.error"
+  ],
+  "author": "Alan Shaw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alanshaw/stripify/issues"
+  },
+  "homepage": "https://github.com/alanshaw/stripify",
+  "dependencies": {
+    "through": "^2.3.4",
+    "falafel": "^0.3.1"
+  }
+}

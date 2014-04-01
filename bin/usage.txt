@@ -1,0 +1,12 @@
+usage:
+
+  stripify file
+
+    Remove `console.log()` calls from `file`, printing the transformed file
+    contents to stdout.
+
+  stripify
+  stripify -
+
+    Remove `console.log()` calls from stdin, printing the transformed file
+    contents to stdout.
