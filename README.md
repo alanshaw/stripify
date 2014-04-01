@@ -1,8 +1,8 @@
 stripify [![Build Status](https://travis-ci.org/alanshaw/stripify.svg)](https://travis-ci.org/alanshaw/stripify) [![Dependency Status](https://david-dm.org/alanshaw/stripify.svg?theme=shields.io)](https://david-dm.org/alanshaw/stripify)
 ====
-Browserify transform that strips console.log lines from your code.
+Browserify transform that strips `console.log` lines from your code.
 
-This module for [browserify](http://browserify.org/) will remove `console.log`, `console.debug`, `console.info`, `console.warn` and `console.error` logging lines from your js files.
+This module for [browserify](http://browserify.org/) will remove `console.log`, `console.info`, `console.warn`, `console.error` [and friends](https://developer.mozilla.org/en-US/docs/Web/API/console) from your js files.
 
 Example
 ---

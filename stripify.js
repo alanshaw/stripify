@@ -38,11 +38,9 @@ function isConsole (node) {
   return node.object.type == "Identifier" && node.object.name == "console"
 }
 
+var consoleApi = ["assert", "count", "debug", "dir", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "profile", "profileEnd", "time", "timeEnd", "trace", "warn"]
+
 function isLog (node) {
   return node.type == "Identifier"
-    && (node.name == "log"
-    ||  node.name == "debug"
-    ||  node.name == "info"
-    ||  node.name == "warn"
-    ||  node.name == "error")
+    && (consoleApi.indexOf(node.name) > -1)
 }

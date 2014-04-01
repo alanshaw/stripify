@@ -15,10 +15,12 @@
     "browserify",
     "browserify-transform",
     "strip",
-    "console",
+    "debug",
     "log",
     "logging",
+    "console",
     "console.log",
+    "console.debug",
     "console.info",
     "console.warn",
     "console.error"
