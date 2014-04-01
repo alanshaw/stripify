@@ -1,3 +1,71 @@
 stripify [![Build Status](https://travis-ci.org/alanshaw/stripify.svg)](https://travis-ci.org/alanshaw/stripify) [![Dependency Status](https://david-dm.org/alanshaw/stripify.svg?theme=shields.io)](https://david-dm.org/alanshaw/stripify)
 ====
 Browserify transform that strips console.log lines from your code.
+
+This module for [browserify](http://browserify.org/) will remove `console.log`, `console.info`, `console.warn` and `console.error` logging lines from your js files.
+
+Example
+---
+
+For example.js:
+
+```js
+var foo = "bar"
+console.log(foo + " bar")
+foo = "foo"
+```
+
+then on the command line:
+
+```sh
+browserify -t stripify example.js > bundle.js
+```
+
+or with the api:
+
+```js
+var browserify = require("browserify")
+  , fs = require("fs")
+
+var b = browserify("example.js")
+b.transform("stripify")
+
+b.bundle().pipe(fs.createWriteStream("bundle.js"))
+```
+
+the bundle file output is:
+
+```js
+var foo = "bar"
+
+foo = "foo"
+```
+
+Usage
+---
+
+```sh
+npm install stripify
+```
+
+As with all browserify transforms, stripify returns a through/transform stream.
+
+```js
+var fs = require("fs")
+  , stripify = require("stripify")
+  , src = "/path/to/file.js"
+  , dest = "/path/to/file-transformed.js"
+  , ts = stripify(src)
+
+fs.createReadStream(src).pipe(ts).pipe(fs.createWriteStream(dest))
+```
+
+### Command line
+You can use stripify on the command line as well:
+
+```sh
+npm install -g stripify
+stripify /path/to/file.js
+```
+
+Output is written to stdout.
