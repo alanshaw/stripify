@@ -5,7 +5,7 @@
   "main": "stripify.js",
   "bin": "bin/stripify.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +32,9 @@
   "dependencies": {
     "through": "^2.3.4",
     "falafel": "^0.3.1"
+  },
+  "devDependencies": {
+    "async": "^0.6.2",
+    "concat-stream": "^1.4.4"
   }
 }
