@@ -16,6 +16,7 @@
     "browserify-transform",
     "strip",
     "debug",
+    "debugger",
     "log",
     "logging",
     "console",

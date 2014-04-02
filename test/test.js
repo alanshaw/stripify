@@ -15,9 +15,9 @@ fs.readdir(path.join(__dirname, "fixtures"), function (er, files) {
       fs.createReadStream(filePath)
         .pipe(stripify(filePath))
         .pipe(concat(function (stripped) {
-          fs.readFile(path.join(__dirname, "expected", file), function (er, expectation) {
+          fs.readFile(path.join(__dirname, "expected", file), {encoding: "utf-8"}, function (er, expectation) {
             if (er) throw er
-            assert.equal(stripped, expectation, file)
+            assert.equal(stripped, expectation, file + "\n" + stripped + "\n" + expectation)
             cb()
           })
         }))

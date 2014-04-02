@@ -23,7 +23,7 @@ module.exports = function (file) {
 
 function parse (data) {
   return falafel(data, function (node) {
-    if (node.type != "CallExpression" || !isConsoleLog(node.callee)) return;
+    if (node.type != "DebuggerStatement" && (node.type != "CallExpression" || !isConsoleLog(node.callee))) return;
     node.update("")
   })
 }
