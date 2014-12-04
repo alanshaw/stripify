@@ -1,30 +1,34 @@
-var through = require("through")
+var through = require("through2")
   , falafel = require("falafel")
 
-module.exports = function (file) {
+module.exports = function (file, opts) {
   if (/\.json$/.test(file)) return through()
+
+  opts = opts || {}
+  opts.replacement = opts.replacement || opts.r || ""
 
   var data = ""
 
   return through(
-    function (buf) {
+    function (buf, enc, cb) {
       data += buf
+      cb()
     },
-    function () {
+    function (cb) {
       try {
-        this.queue(String(parse(data)))
+        this.push(String(parse(data, opts)))
       } catch (er) {
-        this.emit("error", new Error(er.toString().replace("Error: ", "") + " (" + file + ")"))
+        cb(new Error(er.toString().replace("Error: ", "") + " (" + file + ")"))
       }
-      this.queue(null)
+      cb()
     }
   )
 }
 
-function parse (data) {
+function parse (data, opts) {
   return falafel(data, function (node) {
     if (node.type != "DebuggerStatement" && (node.type != "CallExpression" || !isConsoleLog(node.callee))) return;
-    node.update("")
+    node.update(opts.replacement)
   })
 }
 

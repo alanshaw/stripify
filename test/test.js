@@ -1,30 +1,29 @@
 var fs = require("fs")
   , path = require("path")
-  , assert = require("assert")
-  , async = require("async")
+  , test = require("tape")
   , concat = require("concat-stream")
   , stripify = require("../")
 
-fs.readdir(path.join(__dirname, "fixtures"), function (er, files) {
-  if (er) throw er
+var files = fs.readdirSync(path.join(__dirname, "fixtures"))
+var testOpts = {
+  "replacement.js": {r: "(0)"}
+}
 
-  var tasks = files.map(function (file) {
-    return function (cb) {
-      var filePath = path.join(__dirname, "fixtures", file)
+files.forEach(function (file) {
+  test("Test " + file, function (t) {
+    t.plan(2)
 
-      fs.createReadStream(filePath)
-        .pipe(stripify(filePath))
-        .pipe(concat(function (stripped) {
-          fs.readFile(path.join(__dirname, "expected", file), {encoding: "utf-8"}, function (er, expectation) {
-            if (er) throw er
-            assert.equal(stripped, expectation, file + "\n" + stripped + "\n" + expectation)
-            cb()
-          })
-        }))
-    }
-  })
+    var filePath = path.join(__dirname, "fixtures", file)
+    var opts = testOpts[file]
 
-  async.series(tasks, function (er) {
-    if (er) throw er
+    fs.createReadStream(filePath)
+      .pipe(stripify(filePath, opts))
+      .pipe(concat({encoding: 'string'}, function (stripped) {
+        fs.readFile(path.join(__dirname, "expected", file), "utf8", function (er, expectation) {
+          t.ifError(er, "No error reading expectation file")
+          t.equal(stripped, expectation, "Transformed file contents equal expected file contents")
+          t.end()
+        })
+      }))
   })
 })
