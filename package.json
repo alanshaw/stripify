@@ -5,7 +5,7 @@
   "main": "stripify.js",
   "bin": "bin/stripify.js",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "tape test/test.js"
   },
   "repository": {
     "type": "git",
