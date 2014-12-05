@@ -69,3 +69,24 @@ stripify /path/to/file.js
 ```
 
 Output is written to stdout.
+
+### Options
+
+#### `--replacement=STATEMENT, -r STATEMENT`
+
+Stripify will remove `console.log` statements by default. If you've put a log statement in a weird place, removing it could cause a syntax error. The `replacement` option allows you to specify a replacement statement.
+
+e.g.
+
+```sh
+echo "console.log('foo')" | stripify -r '(0)' # Outputs (0)
+```
+
+```sh
+browserify main.js -t [stripify -r '(0)']
+```
+
+```js
+var stripify = require("stripify")
+stripify("file.js", {replacement: '(0)'})
+```

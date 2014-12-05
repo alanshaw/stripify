@@ -2,9 +2,10 @@
 var fs = require("fs")
   , path = require("path")
   , stripify = require("../")
-  , file = process.argv[2]
+  , argv = require("minimist")(process.argv.slice(2))
+  , file = argv._[0]
 
-if (file == "-h" || file == "--help") {
+if (argv.h || argv.help) {
   return fs.createReadStream(path.join(__dirname, "usage.txt")).pipe(process.stdout)
 }
 
@@ -17,4 +18,4 @@ if (file && file != "-") {
   file = path.join(process.cwd(), "-")
 }
 
-rs.pipe(stripify(file)).pipe(process.stdout)
+rs.pipe(stripify(file, argv)).pipe(process.stdout)
