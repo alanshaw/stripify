@@ -18,7 +18,7 @@ module.exports = function (file, opts) {
       try {
         this.push(String(parse(data, opts)))
       } catch (er) {
-        cb(new Error(er.toString().replace("Error: ", "") + " (" + file + ")"))
+        return cb(new Error(er.toString().replace("Error: ", "") + " (" + file + ")"))
       }
       cb()
     }
