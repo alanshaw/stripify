@@ -1,0 +1,2 @@
+var foobar = 'baz';
+;

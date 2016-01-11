@@ -42,7 +42,7 @@ function isConsole (node) {
   return node.object.type == "Identifier" && node.object.name == "console"
 }
 
-var consoleApi = ["assert", "count", "debug", "dir", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "profile", "profileEnd", "time", "timeEnd", "trace", "warn"]
+var consoleApi = ["assert", "count", "debug", "dir", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "profile", "profileEnd", "time", "timeEnd", "trace", "warn", "table"]
 
 function isLog (node) {
   return node.type == "Identifier"
