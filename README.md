@@ -90,3 +90,20 @@ browserify main.js -t [stripify -r '(0)']
 var stripify = require("stripify")
 stripify("file.js", {replacement: '(0)'})
 ```
+
+### Preserving logs
+
+Sometimes we want to preserve certain console statements while stripping out other ones. Stripify supports this by expecting your console messages to begin with `!Stripify:Preserve!`.
+
+For example:
+
+```js
+console.log('!Stripify:Preserve!Keep this message');
+console.log('Remove this message');
+```
+
+Will become:
+
+```js
+console.log('Keep this message');
+```
