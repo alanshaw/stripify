@@ -1,6 +1,8 @@
 var through = require("through2")
   , falafel = require("falafel")
 
+var preserveMessage = '!Stripify:Preserve!'
+
 module.exports = function (file, opts) {
   if (/\.json$/.test(file)) return through()
 
@@ -28,6 +30,14 @@ module.exports = function (file, opts) {
 function parse (data, opts) {
   return falafel(data, function (node) {
     if (node.type != "DebuggerStatement" && (node.type != "CallExpression" || !isConsoleLog(node.callee))) return;
+
+    // If a console message begins with '!Stripify:Preserve!', then we don't want to remove the log,
+    // But we do need to remove the '!Stripify:Preserve!' from the log message itself.
+    if (node.arguments && node.arguments.length > 0 && node.arguments[0].value && node.arguments[0].value.indexOf(preserveMessage) === 0) {
+      node.arguments[0].update(node.arguments[0].source().replace(preserveMessage, ''))
+      return;
+    }
+
     node.update(opts.replacement)
   })
 }
