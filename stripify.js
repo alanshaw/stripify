@@ -39,7 +39,7 @@ function isConsoleLog (node) {
 function isConsole (node) {
   if (!node) return false
   if (node.type != "MemberExpression") return false
-  return node.object.type == "Identifier" && node.object.name == "console"
+  return node.object.type == "Identifier" && ( node.object.name == "console" || node.object.name == "Console" )
 }
 
 var consoleApi = ["assert", "count", "debug", "dir", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "profile", "profileEnd", "time", "timeEnd", "trace", "warn", "table"]
