@@ -1,5 +1,6 @@
 var through = require("through2")
   , falafel = require("falafel")
+  , acorn = require("acorn")
 
 module.exports = function (file, opts) {
   if (/\.json$/.test(file)) return through()
@@ -26,7 +27,9 @@ module.exports = function (file, opts) {
 }
 
 function parse (data, opts) {
-  return falafel(data, function (node) {
+  return falafel(data, {
+    parser: acorn
+  }, function (node) {
     if (node.type != "DebuggerStatement" && (node.type != "CallExpression" || !isConsoleLog(node.callee))) return;
     node.update(opts.replacement)
   })
