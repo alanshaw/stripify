@@ -15,3 +15,4 @@ console.time();
 console.timeEnd();
 console.trace();
 console.warn();
+console.log.apply(console, ["foo"]);
