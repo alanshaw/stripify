@@ -16,3 +16,4 @@ console.timeEnd();
 console.trace();
 console.warn();
 console.log.apply(console, ["foo"]);
+console.log.call(console, "foo");

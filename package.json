@@ -5,7 +5,7 @@
   "main": "stripify.js",
   "bin": "bin/stripify.js",
   "scripts": {
-    "test": "tape test/test.js"
+    "test": "standard && tape test/test.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,13 @@
   },
   "devDependencies": {
     "concat-stream": "^1.4.4",
+    "standard": "^8.1.0",
     "tape": "^4.4.0"
+  },
+  "standard": {
+    "ignore": [
+      "test/fixtures",
+      "test/expected"
+    ]
   }
 }
