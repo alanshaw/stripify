@@ -6,6 +6,7 @@ module.exports = function (file, opts) {
 
   opts = opts || {}
   opts.replacement = opts.replacement || opts.r || ''
+  opts.methods = opts.methods || opts.m || consoleApi
 
   var data = ''
 
@@ -27,15 +28,15 @@ module.exports = function (file, opts) {
 
 function parse (data, opts) {
   return falafel(data, function (node) {
-    if (node.type !== 'DebuggerStatement' && (node.type !== 'CallExpression' || (!isConsoleLog(node.callee) && !isConsoleLogProto(node.callee)))) return
+    if (node.type !== 'DebuggerStatement' && (node.type !== 'CallExpression' || (!isConsoleMethod(node.callee, opts.methods) && !isConsoleMethodProto(node.callee, opts.methods)))) return
     node.update(opts.replacement)
   })
 }
 
-function isConsoleLogProto (node) {
+function isConsoleMethodProto (node, methods) {
   if (!node) return false
   if (node.type !== 'MemberExpression') return false
-  return isProto(node.property) && isConsoleLog(node.object)
+  return isProto(node.property) && isConsoleMethod(node.object, methods)
 }
 
 var functionProtoMethods = [ 'apply', 'call' ]
@@ -44,8 +45,8 @@ function isProto (node) {
   return node.type === 'Identifier' && (functionProtoMethods.indexOf(node.name) > -1)
 }
 
-function isConsoleLog (node) {
-  return isConsole(node) && isLog(node.property)
+function isConsoleMethod (node, methods) {
+  return isConsole(node) && isMethod(node.property, methods)
 }
 
 function isConsole (node) {
@@ -54,8 +55,8 @@ function isConsole (node) {
   return node.object.type === 'Identifier' && node.object.name === 'console'
 }
 
-var consoleApi = ['assert', 'count', 'debug', 'dir', 'error', 'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log', 'profile', 'profileEnd', 'time', 'timeEnd', 'trace', 'warn', 'table']
-
-function isLog (node) {
-  return node.type === 'Identifier' && (consoleApi.indexOf(node.name) > -1)
+function isMethod (node, methods) {
+  return node.type === 'Identifier' && (methods.indexOf(node.name) > -1)
 }
+
+var consoleApi = ['assert', 'count', 'debug', 'dir', 'error', 'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log', 'profile', 'profileEnd', 'time', 'timeEnd', 'trace', 'warn', 'table']

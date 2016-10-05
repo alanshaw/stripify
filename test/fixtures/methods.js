@@ -1,0 +1,17 @@
+console.assert();
+console.count();
+console.debug();
+console.dir();
+console.error();
+console.exception();
+console.group();
+console.groupCollapsed();
+console.groupEnd();
+console.info();
+console.log();
+console.profile();
+console.profileEnd();
+console.time();
+console.timeEnd();
+console.trace();
+console.warn();

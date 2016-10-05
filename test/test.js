@@ -6,7 +6,8 @@ var stripify = require('../')
 
 var files = fs.readdirSync(path.join(__dirname, 'fixtures'))
 var testOpts = {
-  'replacement.js': {r: '(0)'}
+  'replacement.js': {r: '(0)'},
+  'methods.js': {methods: ['log', 'info']}
 }
 
 files.forEach(function (file) {
